@@ -3,14 +3,24 @@
 spl_autoload_register(function($className){
     include 'class/' . $className . '.php';
 });
+//print($_SERVER['REQUEST_URI']);
+//
+//switch ($_SERVER['REQUEST_URI'])
+//{
+//    case '/Kassenzettel/index.php':
+//    {
+//
+//    }
+//}
 
 $salami = Artikel::read(1);
 $saft = Artikel::read(3);
 $butter = Artikel::read(5);
-$kassenzettel = Kassenzettel::read(2);
-$kassenzettel->addArtikelToDB($saft, $salami, $butter);
-$kassenzettel->deleteArtikelFromBon($salami);
-print_r($kassenzettel->getArtikel());
+//echo $butter->getPreis();
+$kassenzettel = Kassenzettel::read(1);
+//$kassenzettel->addArtikelToDB($saft, $salami, $butter);
+//$kassenzettel->deleteArtikelFromBon($salami);
+//print_r($kassenzettel->getArtikel());
 
 echo $kassenzettel->getAnzahlArtikel();
 

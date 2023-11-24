@@ -77,7 +77,6 @@ class Kassenzettel extends DBConn
             $stmt->execute([':bonId' => $this->getBonId(),':produktid' => $item->getProduktId()]);
             $this->produkte[] = $item;
         }
-
     }
 
     public function getArtikel() : array
@@ -98,11 +97,7 @@ class Kassenzettel extends DBConn
 
     public function getAnzahlArtikel(): int
     {
-        $conn = self::getConn();
-        $sqlquery = "SELECT COUNT(produktId) FROM bon_artikel WHERE bonId = :id";
-        $stmt = $conn->prepare($sqlquery);
-        $stmt->execute([':id' => $this->getBonId()]);
-        $this->anzahlArtikel = $stmt->fetch(7);
+        $this->anzahlArtikel = count(self::getArtikel());
         return $this->anzahlArtikel;
     }
 

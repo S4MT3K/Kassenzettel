@@ -16,9 +16,10 @@ abstract class DBConn
         return new PDO("mysql:host=$servername;dbname=$dbname", $username, $pass);
     }
 
-    public function create() : void
-    {
-    }
+//    public static function create(string $name, float $preis) : static
+//    {
+//        return new static;
+//    }
 
     public static function read(int $id) : static
     {

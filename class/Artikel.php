@@ -5,7 +5,7 @@ class Artikel extends DBConn
     private int|null $produktId;
     private string $name;
     private float $preis;
-    private const MWST = 19;
+    private const MWST = 1.07;
 
     public function __construct(string $nm, float $prs, ?int $prodId = null)
     {
@@ -14,13 +14,13 @@ class Artikel extends DBConn
         $this->preis = $prs;
     }
 
-    public function create(): void
+    public function create(string $name, float $preis): static
     {
         $conn = self::getConn();
         $sqlquery = "INSERT INTO produkte (name, preis) VALUES (:name, :preis)";
         $stmt = $conn->prepare($sqlquery);
-        $stmt->execute([':name' => $this->name, ':preis' => $this->preis]);
-        $this->setProduktId($conn->lastInsertId());
+        $stmt->execute([':name' => $name, ':preis' => $preis]);
+        return self::read($conn->lastInsertId());
     }
 
     public static function read(int $id) : static
@@ -89,7 +89,7 @@ class Artikel extends DBConn
 
     public function getPreis(): float
     {
-        return $this->preis;
+        return $this->preis * self::MWST;
     }
 
     public function setPreis(float $preis): void
